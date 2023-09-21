@@ -22,5 +22,5 @@ int main() {
     // Умножим скобки друг на друга: (cos(a^3 - pi)^2) * (((e^(-b^2 + 4.9))/(a-b)^3)^0.5)
     znach = temp * tnum;
     cout << "Расчёты по формулам возвращают значения: ";
-    printf("%.4f", znach);
+    cout << fixed << setprecision(3) << znach;
 }
