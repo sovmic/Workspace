@@ -1,5 +1,6 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,5 +23,5 @@ int main() {
     // Умножим скобки друг на друга: (cos(a^3 - pi)^2) * (((e^(-b^2 + 4.9))/(a-b)^3)^0.5)
     znach = temp * tnum;
     cout << "Расчёты по формулам возвращают значения: ";
-    cout << fixed << setprecision(3) << znach;
+    cout << fixed << setprecision(4) << znach;
 }
