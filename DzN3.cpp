@@ -22,7 +22,7 @@ float func_3(float x) {
 }
 
 float func_4(float x) {
-	res = pow(x, 3 / 2) + pow(sin(x), 2) + exp(-x);
+	res = sqrt(pow(x, 3)) + pow(sin(x * PI / 180), 2) + exp(-x);
 	return res;
 }
 
