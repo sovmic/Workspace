@@ -1,0 +1,79 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+	// 1) Пешка
+	// 2) Ладья
+	// 3) Слон 
+	// 4) Ферзь
+	// 5) Конь
+	// 6) Король
+	setlocale(LC_ALL, "Russian");
+	int figure;
+	int x1, y1, x2, y2;
+	cout << "Пожалуйста, выберете шахматную фигуру:\n" << "1) Пешка\n2) Ладья\n3) Слон\n4) Ферзь\n5) Конь\n6) Король\n";
+	cin >> figure;
+	switch (figure) {
+	case 1: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (abs((x1 + y1) - (x2 + y2)) == 2 or abs((x1 + y1) - (x2 + y2)) == 0) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+	}
+	case 2: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (y1 == y2 or x1 == x2) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+	}
+	case 3: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (abs(x1 - x2) == abs(y1 - y2)) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+
+	}
+	case 4: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (abs(x1 - x2) == abs(y1 - y2) or (y1 == y2 or x1 == x2)) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+
+	}
+	case 5: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (abs(x1 - x2) == 1 and abs(y1 - y2) == 2 or abs(x1 - x2) == 2 and abs(y1 - y2) == 1) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+
+	}
+	case 6: {
+		cout << "Введте координаты выбранной вам фигуры (от 1 до 8): " << endl;
+		cin >> x1 >> y1 >> x2 >> y2;
+		if (abs(x1 - x2) <= 1 and abs(y1 - y2) <= 1 or (y2 == x2 and abs(x1 - x2) <= 2 and abs(y1 - y2) <= 2)) {
+			cout << "YES\n";
+		}
+		else cout << "NO\n";
+		break;
+
+	}
+	default: return 0;
+	}
+}
