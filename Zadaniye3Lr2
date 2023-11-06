@@ -1,0 +1,59 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RUSSIAN");
+    int n, x;
+    cout << "Введите значение аргумента Х для расчёта значения ряда arcsin(x):\n ";
+    cin >> x;
+    cout << "Введите порядковый номер члена ряда до которого будут производится расчёты (N > 0):\n ";
+    cin >> n;
+    cout << endl;
+    int temp_div = 2, count = 0;
+    float sum = 0, div = 1, multi = 0, num = 1;
+    float min, max = x;
+    cout << setiosflags(ios::left) << setw(16) << "Числитель" << setiosflags(ios::left) << setw(16) << "Знаменатель" << setiosflags(ios::left) << setw(16) << "Слагаемое" << setiosflags(ios::left) << "Сумма\n\n";
+
+    if (n >= 1) {
+        for (int i = 0; i <= n + 1; i++) {
+
+            if (n > 1) {
+
+                // Степень коэфф. Х
+                multi = pow(x, 2 * n - 1);
+
+                // Вычисление знаменателя
+                for (int y = 1; y <= n - 1; y++) {
+                    if (temp_div % 2 == 0) {
+                        div *= temp_div;
+                        temp_div += 2;
+                    }
+                }
+                div *= temp_div - 1;
+
+                // Вычисление числителя
+                for (int j = 1; j <= n - 1; j++) {
+                    if (j % 2 == 1) {
+                        num *= j;
+                        n++;
+                        count++;
+                    }
+                }
+
+                sum += (multi * num) / div;
+                cout << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << num * multi << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << div << setiosflags(ios::left) << setw(16) << setprecision(5) << fixed << (multi * num) / div << setiosflags(ios::left) << sum << endl;
+                n = n - 1 - count;
+                count = 0;
+                div = 1;
+                num = 1;
+                temp_div = 2;
+            }
+        }
+        sum += 1;
+        cout << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x / x << setiosflags(ios::left) << sum << endl;
+    }
+    else cout << "Неправильный ввод данных!";
+}
