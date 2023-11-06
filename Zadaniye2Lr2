@@ -1,0 +1,30 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+
+#define A -5
+#define B 5
+#define H 0.1
+
+using namespace std;
+
+int main() {
+    setlocale(LC_ALL, "RUSSIAN");
+    // f(x) = x * exp(x) + 2 * sin(x) - sqrt(abs(pow(x,3) - pow(x,2))))
+    // Двузначаная сумма знач f(x)
+    float x = 0;
+    float y;
+    float sum = 0;
+    cout << setw(7) << "x" << setw(14) << "f(x)" << endl;
+    cout << endl;
+    for (float i = x; i < B; i += H) {
+        x = i;
+        y = x * exp(x) + 2 * sin(x) - sqrt(abs(pow(x, 3) - pow(x, 2)));
+        cout << setprecision(4) << fixed << setiosflags(ios::right) << setw(10);
+        cout << x << "\t" << y << endl;
+        if (int(y) / 10 >= 1) {
+            sum += y;
+        }
+    }
+    cout << endl << "Сумма значений с двузначной целой частью: " << sum << endl;
+}
