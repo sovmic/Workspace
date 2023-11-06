@@ -14,7 +14,7 @@ int main() {
     cout << endl;
     int temp_div = 2, count = 0;
     float sum = 0, div = 1, multi = 0, num = 1;
-    float min, max = x;
+    float min = x, max = x / x;
     cout << setiosflags(ios::left) << setw(16) << "Числитель" << setiosflags(ios::left) << setw(16) << "Знаменатель" << setiosflags(ios::left) << setw(16) << "Слагаемое" << setiosflags(ios::left) << "Сумма\n\n";
 
     if (n >= 1) {
@@ -43,6 +43,10 @@ int main() {
                     }
                 }
 
+                if ((multi * num) / div < min) {
+                    min = (multi * num) / div;
+                }
+
                 sum += (multi * num) / div;
                 cout << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << num * multi << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << div << setiosflags(ios::left) << setw(16) << setprecision(5) << fixed << (multi * num) / div << setiosflags(ios::left) << sum << endl;
                 n = n - 1 - count;
@@ -54,6 +58,7 @@ int main() {
         }
         sum += 1;
         cout << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x / x << setiosflags(ios::left) << sum << endl;
+        cout << endl << "min = " << min << endl << "max = " << max;
     }
     else cout << "Неправильный ввод данных!";
 }
