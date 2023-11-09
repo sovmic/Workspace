@@ -4,6 +4,39 @@
 
 using namespace std;
 
+float divider(int iteration) {
+    float current_num = 2, temp_num = 1;
+    if (iteration >= 2) {
+        for (int i = 0; i < iteration; i++) {
+            if (i != iteration - 1) {
+                temp_num *= current_num;
+                current_num += 2;
+            }
+            else {
+                temp_num *= current_num - 1;
+            }
+            
+        }
+    }
+    return temp_num;
+}
+
+float multiply(int iteration) {
+    float current_num = 1, temp_num = 1;
+    if (iteration >= 2) {
+        for (int i = 0; i < iteration - 2; i++) {
+            current_num += 2;
+            temp_num *= current_num;
+        }
+    }
+    return temp_num;
+}
+
+float coefficient(int iteration) {
+    float coeff = iteration * 2 - 1;
+    return coeff;
+}
+
 int main() {
     setlocale(LC_ALL, "RUSSIAN");
     int n, x;
@@ -11,54 +44,21 @@ int main() {
     cin >> x;
     cout << "Введите порядковый номер члена ряда до которого будут производится расчёты (N > 0):\n ";
     cin >> n;
-    cout << endl;
-    int temp_div = 2, count = 0;
-    float sum = 0, div = 1, multi = 0, num = 1;
-    float min = x, max = x / x;
+    float term, div, multi, sum = 0, max = x, min = x;
     cout << setiosflags(ios::left) << setw(16) << "Числитель" << setiosflags(ios::left) << setw(16) << "Знаменатель" << setiosflags(ios::left) << setw(16) << "Слагаемое" << setiosflags(ios::left) << "Сумма\n\n";
 
-    if (n >= 1) {
-        for (int i = 0; i <= n + 1; i++) {
-
-            if (n > 1) {
-
-                // Степень коэфф. Х
-                multi = pow(x, 2 * n - 1);
-
-                // Вычисление знаменателя
-                for (int y = 1; y <= n - 1; y++) {
-                    if (temp_div % 2 == 0) {
-                        div *= temp_div;
-                        temp_div += 2;
-                    }
-                }
-                div *= temp_div - 1;
-
-                // Вычисление числителя
-                for (int j = 1; j <= n - 1; j++) {
-                    if (j % 2 == 1) {
-                        num *= j;
-                        n++;
-                        count++;
-                    }
-                }
-
-                if ((multi * num) / div < min) {
-                    min = (multi * num) / div;
-                }
-
-                sum += (multi * num) / div;
-                cout << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << num * multi << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << div << setiosflags(ios::left) << setw(16) << setprecision(5) << fixed << (multi * num) / div << setiosflags(ios::left) << sum << endl;
-                n = n - 1 - count;
-                count = 0;
-                div = 1;
-                num = 1;
-                temp_div = 2;
-            }
+    for (int i = 1; i < n + 1; i++) {
+        multi = multiply(i);
+        term = pow(x, coefficient(i)) * multiply(i) / divider(i);
+        div = divider(i);
+        sum += term;
+        if (min >= term) {
+            min = term;
         }
-        sum += 1;
-        cout << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x << setiosflags(ios::left) << setw(16) << x / x << setiosflags(ios::left) << sum << endl;
-        cout << endl << "min = " << min << endl << "max = " << max;
+        if (max <= term) {
+            max = term;
+        }
+        cout << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << pow(x, coefficient(i)) * multi << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << div << setiosflags(ios::left) << setw(16) << setprecision(5) << fixed << term << setiosflags(ios::left) << sum << endl;
     }
-    else cout << "Неправильный ввод данных!";
+    cout << "Минимальное значение : " << min << endl << "Максимальное значение : " << max;
 }
