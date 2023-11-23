@@ -60,6 +60,8 @@ vector <int> definition_simple_num(vector <int> arr) {
 		}
 		if (count == 2) {
 			numbers.push_back(i);
+			simple = 0;
+			count = 0;
 		}
 		else {
 			simple = 0;
@@ -80,7 +82,7 @@ int main() {
 	vector <int> iterators = definition_simple_num(new_arr);
 
 	for (int i = 0; i < iterators.size(); i++) {
-		cout << new_arr[iterators[i]] << " ";
+		cout << "Элементы удовлетворяющих условию: " << new_arr[iterators[i]] << " ";
 		count_for_arr++;
 	}
 	
