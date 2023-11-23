@@ -1,49 +1,32 @@
 #include <iostream>
-#include <iomanip>
+#include <vector>
+#include <cmath>
 
 using namespace std;
 
+void alg(vector <int> arr, int num) {
+	int current = 0, s = 1;
+	for (int i = 0; i < num; i++) {
+		current = pow(arr[i], i + 1);
+		s += (current * s) - 1;
+	}
+	cout << s + num - 1;
+}
+
 int main() {
-    setlocale(LC_ALL, "RUSSIAN");
-    int op, count_null = 0, count_sin = 0;
-    srand(time(NULL));
-    cout << "Желаете сгенерировать числа (1) или ввести их самомоу (2)?\n";
-    cin >> op;
-    float num, start, end;
-    switch (op) {
-    case 1: {
-        cout << "Введите отрезок на котором будут генерироваться числа: \n";
-        cin >> start >> end;
-        cout << setiosflags(ios::left) << setw(15) << "Число:\t" << setw(10) << "Синус числа (если оно в диапазоне [-15;15]):\n";
-        for (int i = 0; i < 10; i++) {
-            num = rand() % int(pow(10, 4));
-            num = start + (num / pow(10, 4)) * (end - start);
-            cout << setw(10) << num << "\t";
-            if (num == 0) {
-                count_null++;
-            }
-            else if (num >= -15 and num <= 15) {
-                cout << sin(num) << "\n";
-            }
-            else cout << "Не подходит под условие\n";
-        }
-        cout << endl;
-        break;
-    }
-    case 2: {
-        cout << "Введите 10 чисел: \n";
-        for (int i = 0; i < 10; i++) {
-            cin >> num;
-            if (num == 0) {
-                count_null++;
-                cout << "Синус числа: " << sin(num) << "\n";
-            }
-            else if (num >= -15 and num <= 15) {
-                cout << "Синус числа: " << sin(num) << "\n";
-            }
-        }
-        break;
-    }
-    }
-    cout << "Числа равные нулю: " << count_null << endl;
+
+	setlocale(LC_ALL, "RUSSIAN");
+	
+	vector <int> arr = {};
+
+	int x, temp;
+	cout << "Введите размер массива: ";
+	cin >> x;
+	cout << endl << "Введите элементы массива: ";
+	for (int i = 0; i < x; i++) {
+		cin >> temp;
+		arr.push_back(temp);
+	}
+
+	alg(arr, x);
 }
