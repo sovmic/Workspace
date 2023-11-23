@@ -1,64 +1,41 @@
 #include <iostream>
-#include <iomanip>
-#include <cmath>
+#include <vector>
 
 using namespace std;
 
-float divider(int iteration) {
-    float current_num = 2, temp_num = 1;
-    if (iteration >= 2) {
-        for (int i = 0; i < iteration; i++) {
-            if (i != iteration - 1) {
-                temp_num *= current_num;
-                current_num += 2;
-            }
-            else {
-                temp_num *= current_num - 1;
-            }
-            
-        }
-    }
-    return temp_num;
-}
-
-float multiply(int iteration) {
-    float current_num = 1, temp_num = 1;
-    if (iteration >= 2) {
-        for (int i = 0; i < iteration - 2; i++) {
-            current_num += 2;
-            temp_num *= current_num;
-        }
-    }
-    return temp_num;
-}
-
-float coefficient(int iteration) {
-    float coeff = iteration * 2 - 1;
-    return coeff;
+void alg(vector <int> arr) {
+	int sum = 0, count_nulls = 0;
+	for (int i = 0; i < arr.size(); i++) {
+		if (arr[i] == 0) {
+			count_nulls++;
+		}
+		sum += arr[i];
+	}
+	cout << "Сумма элементов массива: " << sum << "\tКоличество нулевых элементов: " << count_nulls;
 }
 
 int main() {
-    setlocale(LC_ALL, "RUSSIAN");
-    int n, x;
-    cout << "Введите значение аргумента Х для расчёта значения ряда arcsin(x):\n ";
-    cin >> x;
-    cout << "Введите порядковый номер члена ряда до которого будут производится расчёты (N > 0):\n ";
-    cin >> n;
-    float term, div, multi, sum = 0, max = x, min = x;
-    cout << setiosflags(ios::left) << setw(16) << "Числитель" << setiosflags(ios::left) << setw(16) << "Знаменатель" << setiosflags(ios::left) << setw(16) << "Слагаемое" << setiosflags(ios::left) << "Сумма\n\n";
 
-    for (int i = 1; i < n + 1; i++) {
-        multi = multiply(i);
-        term = pow(x, coefficient(i)) * multiply(i) / divider(i);
-        div = divider(i);
-        sum += term;
-        if (min >= term) {
-            min = term;
-        }
-        if (max <= term) {
-            max = term;
-        }
-        cout << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << pow(x, coefficient(i)) * multi << resetiosflags(ios::fixed) << setiosflags(ios::left) << setw(16) << div << setiosflags(ios::left) << setw(16) << setprecision(5) << fixed << term << setiosflags(ios::left) << sum << endl;
-    }
-    cout << "Минимальное значение : " << min << endl << "Максимальное значение : " << max;
+	setlocale(LC_ALL, "RUSSIAN");
+	
+	vector <int> arr = {};
+
+	int n, temp;
+	cout << "Введите размер массива: ";
+	cin >> n;
+	cout << endl << "Введите элементы массива: ";
+	for (int i = 0; i < n; i++) {
+		cin >> temp;
+		arr.push_back(temp);
+	}
+
+	for (int i = 0; i < arr.size(); i++) {
+		if (i % 2 == 0) {
+			arr[i] = arr[i] * (-1);
+		}
+		cout << arr[i] << " ";
+	}
+
+	cout << endl;
+	alg(arr);
 }
