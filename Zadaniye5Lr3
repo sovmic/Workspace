@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+
+	setlocale(LC_ALL, "RUSSIAN");
+	int n = 4, m = 5, sum = 0, const_K;
+	vector <vector <int>> arr(n, vector <int> (m));
+
+	cout << "Введите элементы массива: ";
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> arr[i][j];
+		}
+	}
+
+	cout << endl;
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << setiosflags(ios::right) << setw(5) << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+	cout << resetiosflags(ios::right);
+
+	cout << "Введите константу К для подсчёта элементов: ";
+	cin >> const_K;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			if (i + j == const_K) {
+				sum += arr[i][j];
+			}
+		}
+	}
+
+	cout << "Сумма элементов: " << sum << endl;
+}
