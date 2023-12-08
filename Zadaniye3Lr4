@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 //xi = ((xi - 1) / 2) + (3 / 4) * xi
 //i = 3, 4...
@@ -16,10 +17,12 @@ double alg(vector <double> arr, int i = 1) {
 	for (int i = 0; i < arr.size(); i++) {
 		sum += arr[i];
 	}
-	cout << sum;
+	cout << setprecision(3) << fixed << sum;
 }
 
 int main() {
-	vector <double> x = { static_cast<double>(5) / 8 };
-	cout << alg(x);
+	vector <double> x = {0.625};
+	alg(x);
+	cout << endl;
+	system("pause");
 }
