@@ -3,31 +3,31 @@ xbeg = float(input('Введите начальное значение x = '))
 xend = float(input('Введите конечное значение x = '))
 xd = float(input('Введите значение шага для x = '))
 eps = float(input('Введите значение точности для ε = '))
-s = 1
+n = 0
+k = 0
 
 print("xbeg={0: 7.2f} xend={1: 7.2f} xd={0: 7.2f}".format(xbeg, xend, xd))
 print("I--------I--------I--------I")
 print("I    X   I    Y   I   Sum  I")
 print("I--------I--------I--------I")
 
-        temp1 = ((-1)**n) * (xn**n) * (n + 1)
-        temp2 = (-1)**(n+1) * xn**(n+1)
-
 #3.1 вариант 14 3.2 вариант 16 3.3 вариант 2
 
 xn = xbeg
 while xn <= xend:
-    an = x
-    n = 0
-    y = an
-    while True:
-        y = ((-1**n) * (x**n) * (n + 1)) / ((-1**(n + 1)) * (x**(n + 1)))
+    an = xn
+    while True and xn <= xend:
+        y = (((-1)**n) * (xn**n) * (n + 1)) / ((-1)**(n+1) * xn**(n+1))
+        
+        temp1 = ((-1)**n) * (xn**n) * (n + 1)
+        temp2 = (-1)**(n+1) * xn**(n+1)
         an = an * y
-        y = y + an
+        k = k + an
         n += 1
-    if (abs(y) < eps):
-        break
-    print("I   {0:.2f} I {1:.4f} I {2:.4f} I".format(xn, y, s))
+        if (abs(y) >= eps):
+            break
+        print("I   {0:.2f} I {1:.4f} I {2:.4f} I".format(xn, an, k))
+        xn += xd
     xn += xd
     
 print("I--------I--------I--------I")
