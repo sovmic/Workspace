@@ -24,13 +24,16 @@ while xn <= xend:
         an = an * y
         k = k + an
         n += 1
-        if (abs(y) >= eps):
+        if (abs(an) < eps):
             break
         print("I   {0:.2f} I {1:.4f} I {2:.4f} I".format(xn, an, k))
         xn += xd
     xn += xd
     
 print("I--------I--------I--------I")
+
+
+# ((-1**n) * (x**n) * (n + 1)) / ((-1**(n + 1)) * (x**(n + 1)))
 
 
 # ((-1**n) * (x**n) * (n + 1)) / ((-1**(n + 1)) * (x**(n + 1)))
