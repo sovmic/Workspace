@@ -1,0 +1,69 @@
+#include <iostream>
+#include <algorithm>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+vector <string> alg(vector <string> arr, string s, string s_t, string seps) {
+    int count = 0;
+    for (int i = 0; i < s.size(); i++) {
+        for (int j = 0; j < seps.size(); j++) {
+            if (s[i] != seps[j]) {
+                count++;
+                if (count == seps.size()) {
+                    s_t += s[i];
+                    count = 0;
+                }
+            }
+            else if (s[i] == seps[j]) {
+                count = 0;
+                arr.push_back(s_t);
+                s_t = {};
+                break;
+            }
+        }
+    }
+    arr.push_back(s_t);
+
+    arr.erase(remove(arr.begin(), arr.end(), ""), arr.end());
+    return arr;
+}
+
+
+void print_words(vector <string> arr) {
+    string vowels = { "BbCcDdFfGgHhJjKkLlMmNnPpQqRrSsTtVvWwXxZz»" };
+    string nums = { "123456789" };
+    for (int i = 0; i < arr.size(); i++) {
+        string temp = arr[i];
+        int count_n = 0;
+        int count_v = 0;
+        for (int k = 0; k < temp.size(); k++) {
+            for (int j = 0; j < nums.size(); j++) {
+                if (temp[k] == nums[j]) {
+                    count_n++;
+                }
+            }
+            for (int j = 0; j < vowels.size(); j++) {
+                if (temp[k] == vowels[j]) {
+                    count_v++;
+                }
+            }
+        }
+        if (count_n == 0 and count_v >= 1) {
+            cout << arr[i] << endl;
+        }
+    }
+}
+
+int main() {
+
+    string str, temp_string;
+    vector <string> words = {};
+    string seps = { "_.,;:\\nt!? " };
+
+    getline(cin, str);
+
+    words = alg(words, str, temp_string, seps);
+    print_words(words);
+}
