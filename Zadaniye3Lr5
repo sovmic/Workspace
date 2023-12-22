@@ -1,0 +1,108 @@
+#include "Header.h"
+
+/*
+	
+*/
+//логарифм number1.txt > 1
+		//всё что < 1 записать в number3.txt и вывести в консоль
+		//в конец файла number2.txt записать Result = (кол-во элементов > 1)
+		//самые длинные и короткие слова выписать в text2.txt
+		//в total.txt записать number2.txt (выровнять по правому краю), затем text2.txt выровненные по центру
+		//переименовать total.txt (с клавиатуры)
+		//вывести через консоль number2 и text2
+
+using namespace std;
+
+int main() {
+	setlocale(LC_ALL, "russian");
+	int num;
+	cin >> num;
+	alg(num);
+	vector <string> logarithm;
+	vector <int> arr_for_logarithm;
+	vector <int> result_logarithm;
+
+	string line;
+	ifstream in("C:\\Users\\alesh\\Desktop\\CPPLab\\number1.txt");
+	if (in.is_open()) {
+		while (getline(in, line)) {
+			logarithm.push_back(line);
+		}
+	}
+	in.close();
+
+	arr_for_logarithm = func(logarithm);
+	cout << endl << endl;
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	int count = 0;
+	ofstream out;
+	out.open("C:\\Users\\alesh\\Desktop\\CPPLab\\number3.txt");
+	if (out.is_open()) {
+		for (int i = 0; i < arr_for_logarithm.size(); i++) {
+			if (arr_for_logarithm[i] < 1) {
+				cout << arr_for_logarithm[i] << " ";
+				out << arr_for_logarithm[i] << " ";
+			}
+			if (arr_for_logarithm[i] > 1) {
+				count++;
+				result_logarithm.push_back(log(arr_for_logarithm[i]));
+			}
+		}
+	}
+	out.close();
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	out.open("C:\\Users\\alesh\\Desktop\\CPPLab\\number2.txt");
+	if (out.is_open()) {
+		out << "Result = " << count;
+	}
+	out.close();
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	vector <string> word;
+	word = max_min_size();
+
+	out.open("C:\\Users\\alesh\\Desktop\\CPPLab\\text2.txt");
+	if (out.is_open()) {
+		for (int i = 0; i < word.size(); i++) {
+			out << word[i] << " ";
+		}
+	}
+	out.close();
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	cout << endl;
+
+	out.open("C:\\Users\\alesh\\Desktop\\CPPLab\\total.txt");
+	if (out.is_open()) {
+
+		ifstream result_for_number("C:\\Users\\alesh\\Desktop\\CPPLab\\number2.txt");
+		if (result_for_number.is_open()) {
+			while (getline(result_for_number, line)) {
+				cout << setiosflags(ios::right) << setw(100) << line << endl;
+				out << setiosflags(ios::right) << setw(100) << line << endl;
+			}
+		}
+		result_for_number.close();
+
+		ifstream result_for_text("C:\\Users\\alesh\\Desktop\\CPPLab\\text2.txt");
+		if (result_for_text.is_open()) {
+			while (getline(result_for_text, line)) {
+				cout << setiosflags(ios::right) << setw(50) << line << " ";
+				out << setiosflags(ios::right) << setw(50) << line << " ";
+			}
+		}
+		cout << endl;
+		result_for_text.close();
+	}
+	out.close();
+
+	//////////////////////////////////////////////////////////////////////////////////////////
+
+	system("pause");
+}
