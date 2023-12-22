@@ -1,9 +1,4 @@
 #include "Header.h"
-#include <ctime>
-#include <random>
-#include <fstream>
-#include <string>
-#include <iostream>
 
 using namespace std;
 
@@ -34,7 +29,76 @@ void alg(int n) {
 	in.close();
 }
 
-/* Header
+
+vector <int> func(vector <string> arr) {
+	vector <int> nums;
+	for (int i = 0; i < arr.size(); i++) {
+		string str = arr[i] + ' ';
+		string temp_string;
+		for (int j = 0; j < str.size() - 1; j++) {
+			if (str[j] != ' ') {
+				temp_string += str[j];
+			}
+			else {
+				nums.push_back(stoi(temp_string));
+				temp_string = {};
+			}
+		}
+	}
+	return nums;
+}
+
+vector <string> max_min_size() {
+	int id_max = 0, id_min = 0, max_size, min_size;
+	string line, temp_string;
+	vector <string> max_min;
+	vector <string> words;
+	ifstream in("C:\\Users\\alesh\\Desktop\\CPPLab\\text1.txt");
+	if (in.is_open()) {
+		getline(in, line);
+	}
+	in.close();
+
+	for (int i = 0; i < line.size(); i++) {
+		if (line[i] != ' ') {
+			temp_string += line[i];
+		}
+		else {
+			words.push_back(temp_string);
+			temp_string = {};
+		}
+	}
+
+	max_size = words[0].size();
+	min_size = words[0].size();
+	for (int i = 0; i < words.size(); i++) {
+		if (words[i].size() > max_size) {
+			max_size = words[i].size();
+			id_max = i;
+		}
+		if (words[i].size() < min_size) {
+			min_size = words[i].size();
+			id_min = i;
+		}
+	}
+	max_min.push_back(words[id_max]);
+	max_min.push_back(words[id_min]);
+	return max_min;
+}
+
 #pragma once
+#include <iomanip>
+#include <vector>
+#include <cmath>
+#include <string>
+#include <ctime>
+#include <random>
+#include <fstream>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 void alg(int n);
-*/
+vector <int> func(vector <string> arr);
+vector <string> max_min_size()
