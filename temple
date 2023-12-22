@@ -24,3 +24,12 @@ for (int i = 0; i < str.size(); i++) {
         cout << words[i] << endl;
     }
 */
+
+
+	int res;
+	char oldname[] = "C:\\Users\\alesh\\Desktop\\CPPLab\\total.txt";
+	char newname[50];
+	cout << "Введите новое имя файла: ";
+	string new_s;
+	new_s = "ren " + oldname + " " newname;
+	res = rename(oldname, newname);
