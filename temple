@@ -53,3 +53,47 @@ for (int i = 0; i < array.size(); i++) {
 	}
 }
 */
+
+
+#include <iostream>
+#include <ctime>
+#include <string>
+
+bool isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+time_t parseDate(const std::string& dateString) {
+    std::tm tm = {0};
+    std::istringstream iss(dateString);
+    iss >> std::get_time(&tm, "%d %b %Y %H:%M:%S");
+    return mktime(&tm);
+}
+
+std::string formatDate(const time_t& time) {
+    std::tm* tm = std::localtime(&time);
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "%d %b %Y %H:%M:%S", tm);
+    return std::string(buffer);
+}
+
+int main() {
+    std::string firstDateString = "01 Jan 2021 10:00:00";
+    std::string secondDateString = "02 Jan 2021 10:00:00";
+
+    time_t firstDate = parseDate(firstDateString);
+    time_t secondDate = parseDate(secondDateString);
+
+    std::string firstDateFormatted = formatDate(firstDate);
+    std::string secondDateFormatted = formatDate(secondDate);
+
+    if (firstDate < secondDate) {
+        std::cout << firstDateFormatted << " is earlier than " << secondDateFormatted << std::endl;
+    } else if (firstDate > secondDate) {
+        std::cout << firstDateFormatted << " is later than " << secondDateFormatted << std::endl;
+    } else {
+        std::cout << firstDateFormatted << " is the same as " << secondDateFormatted << std::endl;
+    }
+
+    return 0;
+}
