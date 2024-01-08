@@ -1,2 +1,171 @@
-//файл - считывание - обработка - вывод
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
+using namespace std;
+
+string Timestamp;
+string Method;
+string Status_Code;
+string Url;
+string IP_Address;
+string temp;
+int count_for_Status = 0;
+
+vector <string> arr_line_in_logfile;
+vector <string> arr_IP;
+vector <string> arr_URL;
+vector <string> arr_Timestamp;
+vector <string> arr_Stat_Code;
+vector <string> arr_Method;
+
+vector <string> result(vector <string> arr_line_in_logfile) {
+	for (int k = 0; k < arr_line_in_logfile.size(); k++) {
+
+		//IP-адресс
+		for (int i = 0; i < arr_line_in_logfile[k].size(); i++) {
+			if (arr_line_in_logfile[k][i] != '-') {
+				IP_Address += arr_line_in_logfile[k][i];
+			}
+			else {
+				arr_IP.push_back(IP_Address);
+				IP_Address.clear();
+				break;
+			}
+		}
+
+
+		//временная метка
+		for (int i = 0; i < arr_line_in_logfile[k].size(); i++) {
+			if (arr_line_in_logfile[k][i] == '[') {
+				while (arr_line_in_logfile[k][i] != ']') {
+					Timestamp += arr_line_in_logfile[k][i];
+					i++;
+				}
+				Timestamp += "]";
+			}
+		}
+		arr_Timestamp.push_back(Timestamp);
+		Timestamp.clear();
+
+		//метод, объект(URL), протокол
+		for (int i = 0; i < arr_line_in_logfile[k].size(); i++) {
+			if (arr_line_in_logfile[k][i] == '"') {
+				i++;
+				while (arr_line_in_logfile[k][i] != '"') {
+					temp += arr_line_in_logfile[k][i];
+					i++;
+				}
+				break;
+			}
+		}
+		int count = 0;
+		for (int i = 0; i < temp.size() - 1; i++) {
+			if (temp[i] == ' ') {
+				count++;
+			}
+
+			switch (count) {
+			case 0: {
+				Method += temp[i];
+				break;
+			}
+			case 1: {
+				Url += temp[i];
+			}
+			}
+		}
+		arr_Method.push_back(Method);
+		Method.clear();
+		arr_URL.push_back(Url);
+		Url.clear();
+
+		//статус код
+		for (int i = 0; i < arr_line_in_logfile[k].size(); i++) {
+			if (arr_line_in_logfile[k][i] == '"') {
+				count_for_Status++;
+			}
+			if (count_for_Status == 2) {
+				if (Status_Code.size() != 0) {
+					Status_Code.clear();
+					count_for_Status = 0;
+					break;
+				}
+				else if (arr_line_in_logfile[k][i] != '"') {
+					i++;
+					while (arr_line_in_logfile[k][i] != '-') {
+						Status_Code += arr_line_in_logfile[k][i];
+						i++;
+					}
+					arr_Stat_Code.push_back(Status_Code);
+				}
+			}
+		}
+		temp.clear();
+	}
+	return arr_Stat_Code, arr_URL, arr_Method, arr_Timestamp, arr_IP;
+}
+
+//Для самых частых URL и IP
+string counter(vector <string> array) {
+
+	int max = 0, count = 0; 
+	string most_common = "";
+	for (int i = 0; i < array.size(); i++) {
+		for (int j = array.size() - 1; j > i; j--) {
+			if (array[i] == array[j]) {
+				count++;
+			}
+			if (count > max) {
+				max = count;
+				most_common = array[j];
+			}
+		}
+		count = 0;
+	}
+	if (most_common != "") {
+		return most_common;
+	} else return most_common = "Наиболее частых элементов не выявлено.";
+}
+
+//Время
+void time(vector <string> array) {
+	string last, first;
+
+	first = array[0];
+	last = array[0];
+	for (int i = 0; i < array.size(); i++) {
+		if (array[i] > last) {
+			last = array[i];
+		}
+		else if (array[i] < first) {
+			first = array[i];
+		}
+	}
+	cout << first << "\t";
+	cout << last;
+}
+
+int main() {
+
+	setlocale(LC_ALL, "Russian");
+
+	ifstream logfile("C:\\Test\\Test.txt");
+	string log_line;
+
+	if (logfile.is_open()) {
+		while (getline(logfile, log_line)) {
+			arr_line_in_logfile.push_back(log_line);
+		}
+	}
+
+	logfile.close();
+
+	result(arr_line_in_logfile);
+
+	cout << "Часто встречаемый IP: " << counter(arr_IP) << endl;
+	cout << "Часто встречаемый URL: " << counter(arr_URL) << endl;
+	cout << "Первый и последний запрос были сделаны: ";
+	time(arr_Timestamp);
+}
