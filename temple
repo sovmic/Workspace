@@ -23,6 +23,8 @@ for (int i = 0; i < str.size(); i++) {
     for (int i = 0; i < words.size(); i++) {
         cout << words[i] << endl;
     }
+
+
 */
 
 
@@ -33,3 +35,21 @@ for (int i = 0; i < str.size(); i++) {
 	string new_s;
 	new_s = "ren " + oldname + " " newname;
 	res = rename(oldname, newname);
+/*
+for (int i = 0; i < array.size(); i++) {
+	for (int j = 0; j < array[i].size(); j++) {
+		if (array[i][j] == '[' or array[i][j] == ']' or array[i][j] == '/' or array[i][j] == ':') {
+			array[i][j] = ' ';
+		}
+	}
+	date.push_back(array[i]);
+}
+
+for (int i = 0; i < array.size(); i++) {
+	for (int j = 0; j < array[i].size(); j++) {
+		if (array[i][j] == ' ') {
+			array[i].erase(array[i].begin() + j);
+		}
+	}
+}
+*/
