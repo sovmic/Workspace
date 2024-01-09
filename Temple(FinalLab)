@@ -193,3 +193,11 @@ int main() {
 	time(arr_Timestamp);
 	 
 }
+
+____________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+123.123.123.123 - - [01/May/2000:10:00:00 +0300] "GET /wp-includes/feed.php HTTP/1.0" 200 - "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+456.456.456.456 - - [03/Feb/2022:11:30:00 +0300] "POST /wp-admin/admin-ajax.php?action=updraft_ajax&subaction=restore&filestamp=2021-01-01_10-00-00&type=database HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+789.789.789.789 - - [01/June/2022:12:15:00 +0300] "GET /wp-login.php?action=lostpassword HTTP/1.0" 404 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+987.987.987.987 - - [01/March/2021:13:45:00 +0300] "GET /wp-includes/js/jquery/jquery.js?ver=1.12.4-wp HTTP/1.0" 200 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
+654.654.654.654 - - [03/Feb/2024:14:20:00 +0300] "GET /wp-content/themes/twentytwenty/js/customize-preview.js?ver=1.0.9 HTTP/1.0" 200 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36"
