@@ -1,0 +1,44 @@
+import re
+line = "HDD_aAD_14+kc.ADC:LAA.e.AA,123"
+
+count_for_uppers = 0
+count = 0
+upper = "ABCDEFZHIKLMNOPQRSTVX"
+nums = "1234567890"
+operands = "+-=*/"
+arr_upper = []
+arr = re.split(r"[_|.|,|;|:|\n|\t|!|?]", line)
+
+for i in range(len(arr)):
+    for k in range(len(arr[i])):
+        for j in range(len(upper)):
+            if (arr[i][k] == upper[j]):
+                count += 1
+            if (count == len(arr[i])):
+                arr_upper.append(arr[i])
+                count = 0
+    count = 0
+
+for i in range(len(arr_upper)):
+    for j in range(len(arr_upper[i])):
+        max = 0
+        temp = arr_upper[i].count(arr_upper[i][j])
+        if (temp > max):
+            max = temp
+            temp = 0
+            if (max >= 2):
+                #print(arr_upper[i])
+                count_for_uppers += 1
+                break
+
+for i in range(len(arr)):
+    for j in range(len(nums)):
+        if (arr[i].count(nums[j])):
+            new = arr[i].replace("+", "")
+           
+            #new = arr[i].replace(operands, "")
+            print(new)
+            break
+            
+print(count_for_uppers)
+
