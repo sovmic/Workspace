@@ -2,6 +2,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -130,21 +133,41 @@ string counter(vector <string> array) {
 }
 
 //Время
+
+time_t Date(const string& dateString) {
+	tm tm = {};
+	istringstream iss(dateString);
+	iss >> get_time(&tm, "[%d/%b/%Y:%H:%M:%S]");
+	time_t time = mktime(&tm);
+	return time;
+}
+
 void time(vector <string> array) {
 	string last, first;
-
-	first = array[0];
-	last = array[0];
-	for (int i = 0; i < array.size(); i++) {
-		if (array[i] > last) {
-			last = array[i];
-		}
-		else if (array[i] < first) {
-			first = array[i];
+	int max, min, indx_min = 0, indx_max = 0;
+	
+	for (int j = 0; j < array.size(); j++) {
+		for (int i = 0; i < array[j].size(); i++) {
+			if (array[j][i] == ' ') {
+				array[j].erase(array[j].begin() + i, array[j].end() - 1);
+			}
 		}
 	}
-	cout << first << "\t";
-	cout << last;
+
+	max = Date(array[0]);
+	min = Date(array[0]);
+	for (int i = 0; i < array.size(); i++) {
+		if (Date(array[i]) > max) {
+			max = Date(array[i]);
+			indx_max = i;
+		}
+		else if (Date(array[i]) < min) {
+			min = Date(array[i]);
+			indx_min = i;
+		}
+	}
+	
+	cout << array[indx_min] << "\t" << array[indx_max];
 }
 
 int main() {
@@ -168,4 +191,5 @@ int main() {
 	cout << "Часто встречаемый URL: " << counter(arr_URL) << endl;
 	cout << "Первый и последний запрос были сделаны: ";
 	time(arr_Timestamp);
+	 
 }
