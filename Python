@@ -27,18 +27,15 @@ for i in range(len(arr_upper)):
             max = temp
             temp = 0
             if (max >= 2):
-                #print(arr_upper[i])
+                print(arr_upper[i])
                 count_for_uppers += 1
                 break
 
 for i in range(len(arr)):
     for j in range(len(nums)):
         if (arr[i].count(nums[j])):
-            new = arr[i].replace("+", "")
-           
-            #new = arr[i].replace(operands, "")
-            print(new)
+            temp = re.sub(r"[+|-|=|*|/]", "", arr[i])
+            print(temp)
             break
             
 print(count_for_uppers)
-
