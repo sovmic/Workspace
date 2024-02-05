@@ -1,18 +1,23 @@
-from math import *
+from random import *
 
-def func (a, x):
-    y = a * x
-    return y
+matryx = [[0 for j in range(4)] for i in range(5)]
+sup_arr = [[0 for j in range(5)] for i in range(4)]
 
-with open(r'C:\Test\input.txt', 'r') as inputFile, open(r'C:\Test\output.txt', 'a+') as outputFile:
-    outputFile.write("+============+============+============+============+\nI     A      I     X      I     F1     I     F2     I\n+============+============+============+============+\n")
-    for line in inputFile:
-        if line == "\n":
-            continue
-        (b, c) = line.split()
-        a = float(b)
-        x = float(c)
-    #I   {0:.1f}    I   {1:.1f}   I   {2:.5f}   I     F2     I
-    outputFile.write(str(func(a,x)))
-    inputFile.close()
-    outputFile.close()
+for i in range(5):
+    for j in range(4):
+        matryx[i][j] = randint(-10, 10)
+        sup_arr[j][i] = matryx[i][j]
+
+null = []
+for i in sup_arr:
+    if (sup_arr[i] == 0):
+        temp = sup_arr[i]
+        temp.append(null)
+
+m = max(null)
+
+print(matryx)
+print()
+print(sup_arr)
+print()
+print(null)
