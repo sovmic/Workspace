@@ -33,11 +33,15 @@ print(nulls)
 print()
 print(ma)
 print()
+print(ind_max)
+print()
 
 for i in range(4):
     for j in range(5):
         if (i == ind_max):
-            print(matryx[i][3])
-        else:
-            print(matryx[i][j])
+            matryx[j][ind_max], matryx[j][3] = matryx[j][3], matryx[j][ind_max]
+            
+for i in range(5):
+    for j in range(4):
+        print(matryx[i][j], end = ' ')
     print()
