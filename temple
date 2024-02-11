@@ -5,19 +5,39 @@ sup_arr = [[0 for j in range(5)] for i in range(4)]
 
 for i in range(5):
     for j in range(4):
-        matryx[i][j] = randint(-10, 10)
+        matryx[i][j] = randint(0, 1)
         sup_arr[j][i] = matryx[i][j]
 
-null = []
-for i in sup_arr:
-    if (sup_arr[i] == 0):
-        temp = sup_arr[i]
-        temp.append(null)
+nulls = []
+for i in range(len(sup_arr)):
+    if (sup_arr[i].count(0) >= 0):
+        nulls.append(sup_arr[i].count(0))
+        
 
-m = max(null)
+ma = max(nulls)
+mi = min(nulls)
+ind_min = nulls.index(mi)
+ind_max = nulls.index(ma)
 
-print(matryx)
+for i in range(5):
+    for j in range(4):
+        print(matryx[i][j], end = ' ')
+    print()
 print()
-print(sup_arr)
+for i in range(4):
+    for j in range(5):
+        print(sup_arr[i][j], end = ' ')
+    print()
 print()
-print(null)
+print(nulls)
+print()
+print(ma)
+print()
+
+for i in range(4):
+    for j in range(5):
+        if (i == ind_max):
+            print(matryx[i][3])
+        else:
+            print(matryx[i][j])
+    print()
