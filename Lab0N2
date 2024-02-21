@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+//с конца находим общие символы -> выделяем их в суффикс
+
+string common_suffix(string a, string b) {
+    string suffix;
+
+    int optimal_size;
+
+    if (a.size() > b.size()) {
+        optimal_size = b.size();
+    }
+    else {
+        optimal_size = a.size();
+    }
+    
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
+
+    for (int i = 0; i < optimal_size; i++) {
+        if (a[i] == b[i]) {
+            suffix += a[i];
+        }
+    }
+
+    reverse(suffix.begin(), suffix.end());
+    return suffix;
+}
+
+int main() {
+    string f_line, s_line;
+    cin >> f_line >> s_line;
+    cout << common_suffix(f_line, s_line);
+}
