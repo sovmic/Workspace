@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <ctime>
+
+using namespace std;
+
+//нахождение максимума в строке -> занесение в отдельный вектор -> нахождение максимума в векторе -> определение индекса
+
+int max_element(vector <vector <int>> matrix) {
+
+    vector <int> support = {};
+
+    int max = 0;
+    for (int i = 0; i < matrix.size(); i++) {
+        for (int j = 0; j < matrix[i].size(); j++) {
+            if (matrix[i][j] > max) {
+                max = matrix[i][j];
+            }
+        }
+        support.push_back(max);
+        max = 0;
+    }
+
+    max = 0;
+    for (int i = 0; i < support.size(); i++) {
+        if (support[i] > max) {
+            max = support[i];
+        }
+    }
+
+    for (int i = 0; i < matrix.size(); i++) {
+        for (int j = 0; j < matrix[i].size(); j++) {
+            if (max == matrix[i][j]) {
+                cout << i << " " << j;
+                return 0;
+            }
+        }
+    }
+}
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    srand(time(NULL));
+
+    vector <vector <int>> arr(n, vector <int>(m, 0));
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            arr[i][j] = rand() % 10 + 1;
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    max_element(arr);
+}
