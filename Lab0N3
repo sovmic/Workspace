@@ -1,0 +1,24 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+//разделение строки на символы -> соединение символов в новую строку
+
+string ExtractDigits(string s) {
+    string temp;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '1' or s[i] == '2' or s[i] == '3' or s[i] == '4' or s[i] == '5' or s[i] == '6' or s[i] == '7' or s[i] == '8' or s[i] == '9' or s[i] == '0') {
+            temp += s[i];
+        }
+    }
+
+    return temp;
+}
+
+int main() {
+    string line;
+    getline(cin, line);
+    cout << ExtractDigits(line);
+}
