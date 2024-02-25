@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+/*
+3
+John Doe 15 5 1998
+Alice Smith 12 6 2000
+Bob Johnson 4 3 1998
+*/
+
+struct Student {
+    string name, surname;
+    int day, month, year;
+};
+
+bool SortByDate(Student a, Student b) {
+    if (a.year == b.year) {
+        if (a.month == b.month) {
+            if (a.day == b.day) {
+                if (a.surname == b.surname) {
+                    return a.name < b.name;
+                }
+                return a.surname < b.surname;
+            }
+            return a.day < b.day;
+        }
+        return a.month < b.month;
+    }
+    return a.year < b.year;
+}
+
+bool SortByName(Student a, Student b) {
+    if (a.surname == b.surname) {
+        if (a.name == b.name) {
+            if (a.year == b.year) {
+                if (a.month == b.month) {
+                    return a.day < b.day;
+                }
+                return a.month < b.month;
+            }
+            return a.year < b.year;
+        }
+        return a.name < b.name;
+    }
+    return a.surname < b.surname;
+}
+
+int main() {
+    int n;
+    string sorting;
+    cout << "Enter amount of students: \n";
+    cin >> n;
+
+    vector <Student> arr(n);
+    Student temp_name, temp_surname, temp_day, temp_month, temp_year;
+    temp_name.name, temp_surname.surname, temp_day.day, temp_month.month, temp_year.year;
+
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i].name >> arr[i].surname >> arr[i].day >> arr[i].month >> arr[i].year;
+    }
+
+    cout << "Choose prefer sorting:\n1) By the name\n2) By the date.\n";
+    cin >> sorting;
+
+    if (sorting == "name") {
+        sort(arr.begin(), arr.end(), SortByName);
+    }
+    else if (sorting == "date") {
+        sort(arr.begin(), arr.end(), SortByDate);
+    }
+    else {
+        cout << "Error of variable sorting.";
+        return 0;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i].name << " " << arr[i].surname << " " << arr[i].day << " " << arr[i].month << " " << arr[i].year << "\n";
+    }
+}
