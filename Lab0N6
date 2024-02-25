@@ -63,10 +63,10 @@ int main() {
         cin >> arr[i].name >> arr[i].surname >> arr[i].day >> arr[i].month >> arr[i].year;
     }
 
-    cout << "Choose prefer sorting:\n1) By the name\n2) By the date.\n";
+    cout << "Choose prefer sorting:\n1) By the lastname\n2) By the date.\n";
     cin >> sorting;
 
-    if (sorting == "name") {
+    if (sorting == "Surname" or sorting == "Lastname" or sorting == "surname" or sorting == "lastname") {
         sort(arr.begin(), arr.end(), SortByName);
     }
     else if (sorting == "date") {
