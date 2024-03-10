@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+class SortedStrings {
+public:
+    vector <string> result;
+
+    void addString(string str) {
+        result.push_back(str);
+        sort(begin(result), end(result));
+    }
+
+    void getStrings() {
+        for (int i = 0; i < result.size(); i++) {
+            cout << result[i] << " ";
+        }
+    }
+};
+
+
+
+int main() {
+    SortedStrings temp;
+
+    /*
+    temp.addString("third");
+    temp.addString("first");
+    temp.addString("second");
+
+    temp.addString("Anna");
+    temp.addString("Sofie");
+    temp.addString("Klara");
+    */
+    
+    temp.addString("4");
+    temp.addString("2");
+    temp.addString("1");
+    
+    temp.getStrings();
+}
