@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ReversibleString {
+public:
+    string str;
+
+    void Reverse() {
+        reverse(str.begin(), str.end());
+    }
+
+    void ToString() {
+        cout << str;
+    }
+};
+
+
+
+int main() {
+    ReversibleString s;
+    s.str = ("live");
+    s.Reverse();
+    s.ToString();
+    cout << endl;
+    s.Reverse();
+    s.ToString();
+    cout << endl;
+    s.str = ("");
+    s.Reverse();
+    cout << '"';
+    s.ToString();
+    cout << '"';
+}
