@@ -7,10 +7,8 @@ using namespace std;
 
 class Person {
 public:
-    map <int,string> all_first_names;
-    map <int,string> all_last_names;
-    vector <string> history_first;
-    vector <string> history_last;
+    map <int, string> all_first_names;
+    map <int, string> all_last_names;
 
     string GetName(int year, const map <int, string> list_names) {
         string name = "";
@@ -27,12 +25,10 @@ public:
 
     void ChangeFirstName(int year, string first_name) {
         all_first_names[year] = first_name;
-        history_first.push_back(first_name);
     }
 
     void ChangeLastName(int year, string last_name) {
         all_last_names[year] = last_name;
-        history_last.push_back(last_name);
     }
 
     void GetFullName(int year) {
@@ -54,59 +50,56 @@ public:
     }
 
     void GetFullNameWithHistory(int year) {
-        string first = GetName(year, all_first_names);
-        string last = GetName(year, all_last_names);
+        string first_name = ResultNameWithHistory(year, all_first_names);
+        string last_name = ResultNameWithHistory(year, all_last_names);
 
-        if (first == "" && last == "") {
+        if (first_name == "" && last_name == "") {
             cout << "Incognito" << endl;
         }
-        else if (first == "") {
-            cout << last + " with unknown first name\t";
-            if (history_last.size() > 1) {
-                cout << " ( ";
-                for (const auto& i : history_last) {
-                    cout << i << " ";
-                }
-                cout << " )";
-            }
-            cout << endl;
+        else if (first_name == "") {
+            cout << last_name + " with unknown first name" << endl;
         }
-        else if (last == "") {
-            cout << first + " with unknown last name\t";
-            if (history_first.size() > 1) {
-                cout << " ( ";
-                for (const auto& i : history_first) {
-                    cout << i << " ";
-                }
-                cout << " )";
-            }
-            cout << endl;
+        else if (last_name == "") {
+            cout << first_name + " with unknown last name" << endl;
         }
         else {
-            cout << first;
-            if (history_first.size() > 1) {
-                cout << " ( ";
-                for (const auto& i : history_first) {
-                    if (i != first) {
-                        cout << i << " ";
-                    }
-                }
-                cout << ")";
-            }
-            cout << " " << last;
-            if (history_last.size() > 1) {
-                if (history_last[0] != last) {
-                    cout << " ( ";
-                    for (const auto& i : history_last) {
-                        if (i != last) {
-                            cout << i << " ";
-                        }
-                    }
-                    cout << ")";
-                }
-            }
-            cout << endl;
+            cout << first_name + " " + last_name << endl;
         }
+    }
+
+    string ResultNameWithHistory(int year, map <int, string> names) {
+        vector <string> history;
+        string current;
+
+        for (const auto& i : names) {
+            if (i.first <= year) {
+                if (i.second != current) {
+                    current = i.second;
+                    history.insert(history.begin(), current);
+                }
+            }
+            else {
+                break;
+            }
+        }
+
+        if (history.empty()) {
+            return "";
+        }
+
+        string result = history[0];
+        if (history.size() > 1) {
+            result += " (";
+            for (size_t i = 1; i < history.size(); ++i) {
+                result += history[i];
+                if (i + 1 < history.size()) {
+                    result += ", ";
+                }
+            }
+            result += ")";
+        }
+
+        return result;
     }
 };
 
