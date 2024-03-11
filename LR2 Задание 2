@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+
+using namespace std;
+
+class Person {
+public:
+    string lastName = "", firstName = "";
+    int lastYear = 0;
+
+    map <int, string> historyName;
+    map <int, string> historyLastName;
+
+    void changeName(int year, string newName) {
+        lastYear = year;
+        historyName[year] = newName;
+        firstName = newName;
+        if (historyLastName.count(year) == 0) {
+            historyLastName[year] = lastName;
+        }
+    }
+
+    void changeLastName(int year, string newLastName) {
+        lastYear = year;
+        historyLastName[year] = newLastName;
+        lastName = newLastName;
+        if (historyName.count(year) == 0) {
+            historyName[year] = firstName;
+        }
+    }
+    
+    void printAllName(int year) {
+        if (historyName[year] != "" and historyLastName[year] != "" or (year > lastYear)) {
+            if (year > lastYear) {
+                cout << firstName << " " << lastName << endl;
+                historyName[year] = firstName;
+                historyLastName[year] = lastName;
+            }
+            else {
+                cout << historyName[year] << " " << historyLastName[year] << endl;
+                historyName[year] = firstName;
+                historyLastName[year] = lastName;
+            } 
+        }
+        else if (historyName[year] != "" and historyLastName[year] == "") {
+            cout << historyName[year] << " with unknown last name" << endl;
+        }
+        else if (historyName[year] == "" and historyLastName[year] != "") {
+            cout << historyLastName[year] << " with unknown first name" << endl;
+        }
+        else {
+            cout << "Incognito" << endl;
+        }
+    }
+
+}; 
+
+
+
+int main() {
+    Person human;
+    human.changeName(2005, "Maxim");
+    human.changeLastName(2009, "Ivanov");
+    for (int year : {2000, 2005, 2009, 2010}) {
+        human.printAllName(year);
+    }
+
+    cout << endl;
+
+    human.changeName(2015, "Andrey");
+    for (int year : {2015, 2016}) {
+        human.printAllName(year);
+    }
+
+    cout << endl;
+
+    human.changeLastName(2012, "Danilov");
+    for (int year : {2010, 2017}) {
+        human.printAllName(year);
+    }
+}
