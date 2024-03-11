@@ -1,0 +1,75 @@
+#include <iostream>
+#include <map>
+#include <string>
+
+using namespace std;
+
+class Person {
+public:
+    map <int,string> all_first_names;
+    map <int,string> all_last_names;
+
+    string GetName(int year, const map <int, string> list_names) {
+        string name = "";
+        for (const auto& i : list_names) {
+            if (i.first <= year) {
+                name = i.second;
+            }
+            else {
+                break;
+            }
+        }
+        return name;
+    }
+
+    void ChangeFirstName(int year, string first_name) {
+        all_first_names[year] = first_name;
+    }
+
+    void ChangeLastName(int year, string last_name) {
+        all_last_names[year] = last_name;
+    }
+
+    void GetFullName(int year) {
+        string first = GetName(year, all_first_names);
+        string last = GetName(year, all_last_names);
+
+        if (first == "" && last == "") {
+            cout << "Incognito" << endl;
+        }
+        else if (first == "") {
+            cout << last + " with unknown first name" << endl;
+        }
+        else if (last == "") {
+            cout << first + " with unknown last name" << endl;
+        }
+        else {
+            cout << first + " " + last << endl;
+        }
+    }
+};
+
+int main() {
+    Person person;
+
+    person.ChangeFirstName(1965, "Maxim");
+    person.ChangeLastName(1967, "Ivanov");
+    for (int year : {1900, 1965, 1990}) {
+        person.GetFullName(year);
+    }
+    cout << endl;
+    person.ChangeFirstName(1970, "Andrey");
+    for (int year : {1969, 1970}) {
+        person.GetFullName(year);
+    }
+    cout << endl;
+    person.ChangeLastName(1968, "Ivanov");
+    for (int year : {1969, 1970}) {
+        person.GetFullName(year);
+    }
+    cout << endl;
+    person.ChangeFirstName(1980, "Petr");
+    for (int year : {1978, 1981}) {
+        person.GetFullName(year);
+    }
+}
