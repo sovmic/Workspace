@@ -1,0 +1,41 @@
+
+Client_info {
+	id integer unique > Service.client_id
+	name string
+	living_place string > living_place.name
+	social_status string > Social_status_of_clients.status
+}
+
+Social_status_of_clients {
+	status string unique
+	price_discount integer > Service.discount
+}
+
+living_place {
+	type string
+	name string
+}
+
+List_of_services {
+	types_service string unique > Service.type_service
+}
+
+Service {
+	type_service string
+	description_service string
+	price_service integer
+	date_service integer
+	client_id integer unique
+	discount integer
+	served integer
+}
+
+Staff {
+	personal_name string
+	personal_id integer unique > Service.served
+}
+
+Rank_staff {
+	id integer unique > Staff.personal_id
+	rank string
+}
