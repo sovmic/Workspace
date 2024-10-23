@@ -234,9 +234,10 @@ int main() {
             break;
         }
         case 4: {
-            cout << "Вы выбрали выход из программы.\n";
-            Status = 0;
-        }
+    cout << "Выход из программы.\n";
+    Status = 0;
+    break;
+}
         default: {
             cout << "Неверный ввод.\n";
             UserInput = -1;
