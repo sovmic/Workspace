@@ -1,41 +1,77 @@
+DROP TABLE IF EXISTS "Service";
+DROP TABLE IF EXISTS "Client";
+DROP TABLE IF EXISTS "Order";
+DROP TABLE IF EXISTS "Service_type";
+DROP TABLE IF EXISTS "Discount";
+DROP TABLE IF EXISTS "Employee";
+DROP TABLE IF EXISTS "Feedback";
 
-Client_info {
-	id integer unique > Service.client_id
-	name string
-	living_place string > living_place.name
-	social_status string > Social_status_of_clients.status
-}
+CREATE TABLE IF NOT EXISTS "Service" (
+	"Service_id" bigint NOT NULL UNIQUE,
+	"Service_name" varchar(255) NOT NULL,
+	"Service_description" varchar(255) NOT NULL,
+	"Service_price" bigint NOT NULL CHECK ("Service_price" > 0),
+	"Service_type_id" bigint NOT NULL UNIQUE,
+	PRIMARY KEY ("Service_id")
+);
 
-Social_status_of_clients {
-	status string unique
-	price_discount integer > Service.discount
-}
+CREATE TABLE IF NOT EXISTS "Client" (
+	"Client_id" bigint NOT NULL UNIQUE,
+	"Client_name" varchar(255) NOT NULL,
+	"Client_age" bigint NOT NULL CHECK ("Client_age" >= 18),
+	"City_type" varchar(255) NOT NULL,
+	"Client_residence" varchar(255) NOT NULL,
+	"Discount_id" bigint NOT NULL DEFAULT '0',
+	PRIMARY KEY ("Client_id")
+);
 
-living_place {
-	type string
-	name string
-}
+CREATE TABLE IF NOT EXISTS "Order" (
+	"Order_id" bigint NOT NULL UNIQUE,
+	"Client_id" bigint NOT NULL,
+	"Service_id" bigint NOT NULL,
+	"Employee_id" bigint NOT NULL,
+	"Order_date" bigint NOT NULL,
+	"Result_price" bigint NOT NULL,
+	PRIMARY KEY ("Order_id")
+);
 
-List_of_services {
-	types_service string unique > Service.type_service
-}
+CREATE TABLE IF NOT EXISTS "Service_type" (
+	"Service_id" bigint NOT NULL UNIQUE,
+	"Service_type" varchar(255) NOT NULL UNIQUE,
+	PRIMARY KEY ("Service_id")
+);
 
-Service {
-	type_service string
-	description_service string
-	price_service integer
-	date_service integer
-	client_id integer unique
-	discount integer
-	served integer
-}
+CREATE TABLE IF NOT EXISTS "Discount" (
+	"Discount_id" bigint NOT NULL UNIQUE,
+	"Discount" bigint NOT NULL,
+	"Social_status" varchar(255) NOT NULL,
+	PRIMARY KEY ("Discount_id")
+);
 
-Staff {
-	personal_name string
-	personal_id integer unique > Service.served
-}
+CREATE TABLE IF NOT EXISTS "Employee" (
+	"Employee_id" bigint NOT NULL UNIQUE,
+	"Employee_name" varchar(255) NOT NULL,
+	"Employee_rank" varchar(255) NOT NULL,
+	PRIMARY KEY ("Employee_id")
+);
 
-Rank_staff {
-	id integer unique > Staff.personal_id
-	rank string
-}
+CREATE TABLE IF NOT EXISTS "Feedback" (
+	"Feedback_id" bigint NOT NULL UNIQUE,
+	"Client_id" bigint NOT NULL UNIQUE,
+	"Feedback" varchar(255) NOT NULL,
+	"Rating" bigint NOT NULL,
+	"Order_id" bigint NOT NULL UNIQUE,
+	PRIMARY KEY ("Feedback_id")
+);
+
+ALTER TABLE "Service" ADD CONSTRAINT "Service_fk4" FOREIGN KEY ("Service_type_id") REFERENCES "Service_type"("Service_id");
+ALTER TABLE "Client" ADD CONSTRAINT "Client_fk0" FOREIGN KEY ("Client_id") REFERENCES "Feedback"("Client_id");
+
+ALTER TABLE "Client" ADD CONSTRAINT "Client_fk5" FOREIGN KEY ("Discount_id") REFERENCES "Discount"("Discount_id");
+ALTER TABLE "Order" ADD CONSTRAINT "Order_fk0" FOREIGN KEY ("Order_id") REFERENCES "Feedback"("Order_id");
+
+ALTER TABLE "Order" ADD CONSTRAINT "Order_fk1" FOREIGN KEY ("Client_id") REFERENCES "Client"("Client_id");
+
+ALTER TABLE "Order" ADD CONSTRAINT "Order_fk2" FOREIGN KEY ("Service_id") REFERENCES "Service"("Service_id");
+
+ALTER TABLE "Order" ADD CONSTRAINT "Order_fk3" FOREIGN KEY ("Employee_id") REFERENCES "Employee"("Employee_id");
